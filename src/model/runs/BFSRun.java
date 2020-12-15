@@ -32,6 +32,40 @@ public class BFSRun implements RunInterface {
         Queue<BasicBlocks> queue = new LinkedList<>();
         queue.add(startBlock);
 
+        while (!queue.isEmpty()) {
+
+            BasicBlocks currNode = queue.poll();
+
+            if (currNode.isGoal()) {
+                break;
+            }
+
+            int x = currNode.getRowPos();
+            int y = currNode.getColumnPos();
+
+            ArrayList<BasicBlocks> neighbors = this.m.getUnvisitedNeighbors(x, y);
+
+            for (int i = 0; i < neighbors.size(); i++) {
+                neighbors.get(i).setVisited();
+                neighbors.get(i).setParent(currNode);
+                queue.offer(neighbors.get(i));
+            }
+        }
+
+        Pair goalCords = this.b.getGoal();
+        BasicBlocks b = this.m.getBlock(goalCords.getX(), goalCords.getY());
+        ArrayList<BasicBlocks> fromGoal = new ArrayList<>();
+
+        fromGoal.add(this.startBlock);
+        while (this.startBlock.getColumnPos() != b.getColumnPos() || this.startBlock.getRowPos() != b.getRowPos()) {
+            fromGoal.add(b);
+            b = b.getParent();
+        }
+
+        for (int x = fromGoal.size() - 1; x > 0; x--) {
+            this.run.add(new Pair(fromGoal.get(x).getRowPos(), (fromGoal.get(x).getColumnPos())));
+        }
+
 
 
     }
