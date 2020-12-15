@@ -1,6 +1,7 @@
 package model.types;
 
-import model.bots.BasicBot;
+import model.bots.BFSBot;
+import model.bots.DFSBot;
 import model.bots.BotInterface;
 import model.bots.UserBot;
 import model.maps.MapInterface;
@@ -13,8 +14,10 @@ public class BotTypes {
     public BotInterface choose(String mapType, MapInterface m) {
 
         switch (mapType) {
-            case "BasicBot":
-                return new BasicBot(m);
+            case "DFSBot":
+                return new DFSBot(m);
+            case "BFSBot":
+                return new BFSBot(m);
             case "UserBot":
                 return new UserBot(m);
             default:

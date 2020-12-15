@@ -1,7 +1,5 @@
 package model.blocks;
 
-import java.util.ArrayList;
-
 public class BasicBlocks {
 
     private final int height, width;
@@ -19,6 +17,9 @@ public class BasicBlocks {
 
         if (height <= 0 || width <= 0) {
             throw new IllegalArgumentException("Dimensions must be greater than 0");
+        }
+        if (rowPos < 0 || columnPos < 0) {
+            throw new IllegalArgumentException("Column/Row Position must be greater than or equal to 0");
         }
 
         this.height = height;
@@ -78,7 +79,6 @@ public class BasicBlocks {
         return this.bot;
     }
 
-    //enforcing that it should only have 1 of 3 states
 
 
     public void setVisited() {

@@ -22,4 +22,8 @@ public interface MapInterface {
     int getGridSize();
 
     ArrayList<BasicBlocks> getUnvisitedNeighbors(int x, int y);
+
+
+    BasicBlocks getBlock(int x, int y);
+
 }

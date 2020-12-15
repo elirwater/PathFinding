@@ -100,8 +100,8 @@ public class UserBotView extends SimplePathFindingView {
     public void restart() {
 
         this.reset.addActionListener(actionEvent -> {
-            int x = (int) bot.getStartingCords().get(0);
-            int y = (int) bot.getStartingCords().get(1);
+            int x = (int) bot.getStartingCords().getX();
+            int y = (int) bot.getStartingCords().getY();
             bot.move(x, y);
             reset.setFocusable(false);
         });
@@ -115,8 +115,8 @@ public class UserBotView extends SimplePathFindingView {
 
         this.newStart.addActionListener(actionEvent -> {
             this.bot.generateRandomValidStartingPoint();
-            int x = (int) bot.getStartingCords().get(0);
-            int y = (int) bot.getStartingCords().get(1);
+            int x = (int) bot.getStartingCords().getX();
+            int y = (int) bot.getStartingCords().getY();
             bot.move(x, y);
             newStart.setFocusable(false);
         });

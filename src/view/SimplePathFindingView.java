@@ -24,7 +24,7 @@ abstract class SimplePathFindingView extends JPanel implements ViewInterface {
 
     public SimplePathFindingView (ModelInterface m, int tps) {
         this.m = m;
-        this.lastTick = 2000000000;
+        this.lastTick = 0;
         this.tps = tps;
         this.bot = (BotInterface) m.getBot();
         this.f = new FramePanel((MapInterface) this.m.getMap());
@@ -33,6 +33,8 @@ abstract class SimplePathFindingView extends JPanel implements ViewInterface {
 
     @Override
     public void animate() throws InterruptedException {
+        BotInterface b = (BotInterface) this.m.getBot();
+        this.lastTick = b.getFinalTick() + 1;
         f.setLayout(new BorderLayout());
 
         f.add(this, BorderLayout.CENTER);
@@ -57,7 +59,7 @@ abstract class SimplePathFindingView extends JPanel implements ViewInterface {
     public Dimension getPreferredSize() {
         MapInterface map = (MapInterface) m.getMap();
         int dimensions = (int) (map.getBlockDimensions() + Math.sqrt(map.getGridSize()));
-        return new Dimension(dimensions + 38, dimensions);
+        return new Dimension(dimensions, dimensions);
     }
 
 

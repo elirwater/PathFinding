@@ -89,6 +89,9 @@ public class DepthFirstSearchMap implements MapInterface {
 
     }
 
+
+
+
     /**
      * Controls the depth first search recursion for generating the maze
      *
@@ -168,6 +171,11 @@ public class DepthFirstSearchMap implements MapInterface {
             randoms.add(i + 1);
         Collections.shuffle(randoms);
         return randoms;
+    }
+
+    @Override
+    public BasicBlocks getBlock(int x, int y) {
+        return this.mapGrid.get(x).get(y);
     }
 
 

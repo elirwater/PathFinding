@@ -1,5 +1,6 @@
 package model.runs;
 
+import model.Pair;
 import model.blocks.BasicBlocks;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public interface RunInterface {
      * Grabs the given run.
      * @return List of Basic Blocks
      */
-    ArrayList<ArrayList<Integer>> getRun();
+    ArrayList<Pair> getRun();
 
 
 

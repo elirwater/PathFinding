@@ -1,42 +1,41 @@
 package model.bots;
 
+import model.Pair;
 import model.blocks.BasicBlocks;
 import model.maps.MapInterface;
-import model.runs.BasicRun;
-import model.runs.RunInterface;
+import model.runs.DFSRun;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
-public class BasicBot implements BotInterface<BasicRun> {
+public abstract class AbstractBot implements BotInterface {
 
     private int rowBlock;
     private int columnBlock;
-    private ArrayList<Integer> startingCords;
-    private final MapInterface m;
-    private ArrayList<Integer> goal;
+    private Pair startingCords;
+    protected final MapInterface m;
+    private Pair goal;
     private final HashSet<BasicBlocks> visited;
 
-    private ArrayList<ArrayList<Integer>> visitedOrder;
-
-    private final ArrayList<BasicRun> runs;
+    protected ArrayList<Pair> visitedOrder;
 
 
 
-    public BasicBot(MapInterface m) {
+
+    public AbstractBot(MapInterface m) {
 
         this.m = m;
-        this.startingCords = new ArrayList<>();
         this.visitedOrder = new ArrayList<>();
         this.visited = new HashSet<>();
-        this.runs = new ArrayList<>();
+
 
         this.generateRandomValidStartingPoint();
         this.generateGoal();
-        this.rowBlock = startingCords.get(0);
-        this.columnBlock = startingCords.get(1);
-        this.m.getMapGrid().get(rowBlock).get(columnBlock).setBot();
+        this.rowBlock = startingCords.getX();
+        this.columnBlock = startingCords.getY();
+
+        this.m.getBlock(rowBlock, columnBlock).setBot();
 
     }
 
@@ -45,9 +44,7 @@ public class BasicBot implements BotInterface<BasicRun> {
      * Generates a random pair of integers.
      * @return pair of integers.
      */
-    private ArrayList<Integer> generateRandomPair() {
-        ArrayList<Integer> out = new ArrayList<>();
-
+    private Pair generateRandomPair() {
 
         Random r = new Random();
         int rowBound = m.getMapGrid().size();
@@ -56,14 +53,12 @@ public class BasicBot implements BotInterface<BasicRun> {
         int tempR = r.nextInt(rowBound);
         int tempC = r.nextInt(colBound);
 
-        while (m.getMapGrid().get(tempR).get(tempC).getBlocked()) {
+        while (this.m.getBlock(tempR, tempC).getBlocked()) {
             tempR = r.nextInt(rowBound);
             tempC = r.nextInt(colBound);
         }
-        out.add(tempR);
-        out.add(tempC);
 
-        return out;
+        return new Pair(tempR, tempC);
     }
 
     /**
@@ -71,21 +66,19 @@ public class BasicBot implements BotInterface<BasicRun> {
      */
     public void generateGoal() {
         this.goal = generateRandomPair();
-        int x = this.goal.get(0);
-        int y = this.goal.get(1);
-        this.m.getMapGrid().get(x).get(y).setGoal();
+        int x = this.goal.getX();
+        int y = this.goal.getY();
+        this.m.getBlock(x, y).setGoal();
     }
 
 
     @Override
     public void generateRandomValidStartingPoint() {
-
         this.startingCords = generateRandomPair();
-        int x = this.startingCords.get(0);
-        int y = this.startingCords.get(1);
-
-        this.m.getMapGrid().get(x).get(y).setBot();
-        this.visited.add(this.m.getMapGrid().get(x).get(y));
+        int x = this.startingCords.getX();
+        int y = this.startingCords.getY();
+        this.m.getBlock(x, y).setBot();
+        this.visited.add(this.m.getBlock(x, y));
     }
 
 
@@ -104,13 +97,13 @@ public class BasicBot implements BotInterface<BasicRun> {
         //checking to see if the block that it is attempting to move towards is blocked
         try {
             //Just roots the user in place if they try to move somewhere they shouldn't
-            if (!m.getMapGrid().get(blockRow).get(blockColumn).getBlocked()) {
+            if (!m.getBlock(blockRow, blockColumn).getBlocked()) {
                 this.rowBlock = blockRow;
                 this.columnBlock = blockColumn;
-                this.m.getMapGrid().get(blockRow).get(blockColumn).setBot();
-                this.visited.add(this.m.getMapGrid().get(blockRow).get(blockColumn));
+                this.m.getBlock(blockRow, blockColumn).setBot();
+                this.visited.add(this.m.getBlock(blockRow, blockColumn));
             } else {
-                this.m.getMapGrid().get(x).get(y).setBot();
+                this.m.getBlock(x, y).setBot();
             }
             //Looking outside of the map
         } catch (IndexOutOfBoundsException e) {
@@ -119,7 +112,7 @@ public class BasicBot implements BotInterface<BasicRun> {
     }
 
     @Override
-    public ArrayList<Integer> getRunVisit(int tick) {
+    public Pair getRunCurrentBotPos(int tick) {
         return this.visitedOrder.get(tick);
     }
 
@@ -130,7 +123,7 @@ public class BasicBot implements BotInterface<BasicRun> {
 
     @Override
     public boolean goalReached() {
-        return this.goal.get(0) == this.rowBlock && this.goal.get(1) == this.columnBlock;
+        return this.goal.getX() == this.rowBlock && this.goal.getY() == this.columnBlock;
     }
 
 
@@ -145,31 +138,15 @@ public class BasicBot implements BotInterface<BasicRun> {
     }
 
     @Override
-    public ArrayList<Integer> getStartingCords() {
+    public Pair getStartingCords() {
         return this.startingCords;
     }
 
     @Override
-    public void generateRun() { /////////////////NOT FINAL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        BasicRun r = new BasicRun(2, this.m, this);
-        r.generateRun();
-        this.runs.add(r);
-
-        this.visitedOrder = r.getRun();
+    public void generateRun() {
     }
 
-    @Override
-    public ArrayList<BasicRun> getRuns() {
-        return this.runs;
-    }
-
-    @Override
-    public BasicRun getBestRun() {
-        return null;
-    }
-
-
-    public ArrayList<Integer> getGoal() {
+    public Pair getGoal() {
         return goal;
     }
 }

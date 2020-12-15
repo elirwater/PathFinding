@@ -2,7 +2,6 @@ package controller;
 
 import model.BasicPathFindingModel;
 import view.BasicBotView;
-import view.BasicMapView;
 
 
 //specific controller for specific model

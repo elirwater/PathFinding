@@ -11,6 +11,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -33,11 +34,19 @@
       <recent name="C:\Users\Eli Richmond\IdeaProjects\PathFindingFinal\src\model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.BasicBot">
-    <configuration name="BasicBot" type="Application" factoryName="Application">
+  <component name="RunManager" selected="Application.BFSBot">
+    <configuration name="BFSBot" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="main" />
       <module name="PathFindingFinal" />
-      <option name="PROGRAM_PARAMETERS" value="-map DepthFirstSearch -bot BasicBot -blockSize 600 -numBlocks 6241 -controller BasicBotController" />
+      <option name="PROGRAM_PARAMETERS" value="-map DepthFirstSearch -bot BFSBot -blockSize 600 -numBlocks 6241 -controller BasicBotController" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DFSBot" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="main" />
+      <module name="PathFindingFinal" />
+      <option name="PROGRAM_PARAMETERS" value="-map DepthFirstSearch -bot DFSBot -blockSize 600 -numBlocks 6241 -controller BasicBotController" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -60,7 +69,8 @@
     </configuration>
     <list>
       <item itemvalue="Application.UserBot" />
-      <item itemvalue="Application.BasicBot" />
+      <item itemvalue="Application.DFSBot" />
+      <item itemvalue="Application.BFSBot" />
       <item itemvalue="Application.MazeMapVisualization" />
     </list>
     <recent_temporary>
@@ -83,38 +93,50 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1331" y="228" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607980831176">
+    <state x="997" y="358" key="#BFSBot" timestamp="1608062752774">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1331" y="228" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1607980831176" />
-    <state x="1085" y="409" key="#com.intellij.ide.util.MemberChooser" timestamp="1607979730594">
+    <state x="997" y="358" key="#BFSBot/0.0.2560.1400@0.0.2560.1400" timestamp="1608062752774" />
+    <state x="872" y="358" key="#Notifications" timestamp="1607985420258">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1085" y="409" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1607979730594" />
-    <state x="905" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1607557431517">
+    <state x="872" y="358" key="#Notifications/0.0.2560.1400@0.0.2560.1400" timestamp="1607985420258" />
+    <state x="1331" y="228" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1608062739670">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="905" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1607557431517" />
+    <state x="1331" y="228" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1608062739670" />
+    <state x="1085" y="409" key="#com.intellij.ide.util.MemberChooser" timestamp="1608062239324">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1085" y="409" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1608062239324" />
+    <state x="1076" y="584" width="408" height="238" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1608057926988">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1076" y="584" width="408" height="238" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.2560.1400@0.0.2560.1400" timestamp="1608057926988" />
+    <state x="905" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1608060947434">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="905" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1608060947434" />
     <state x="1010" y="446" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1607716907111">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1010" y="446" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1607716907111" />
-    <state width="2517" height="401" key="GridCell.Tab.0.bottom" timestamp="1607980832733">
+    <state width="2517" height="401" key="GridCell.Tab.0.bottom" timestamp="1608062913077">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1607980832733" />
-    <state width="2517" height="401" key="GridCell.Tab.0.center" timestamp="1607980832733">
+    <state width="2517" height="401" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1608062913077" />
+    <state width="2517" height="401" key="GridCell.Tab.0.center" timestamp="1608062913077">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1607980832733" />
-    <state width="2517" height="401" key="GridCell.Tab.0.left" timestamp="1607980832732">
+    <state width="2517" height="401" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1608062913077" />
+    <state width="2517" height="401" key="GridCell.Tab.0.left" timestamp="1608062913077">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1607980832732" />
-    <state width="2517" height="401" key="GridCell.Tab.0.right" timestamp="1607980832733">
+    <state width="2517" height="401" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1608062913077" />
+    <state width="2517" height="401" key="GridCell.Tab.0.right" timestamp="1608062913077">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1607980832733" />
+    <state width="2517" height="401" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1608062913077" />
     <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1607728206070">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

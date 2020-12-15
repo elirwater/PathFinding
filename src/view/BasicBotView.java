@@ -1,8 +1,7 @@
 package view;
 
 import model.ModelInterface;
-import model.blocks.BasicBlocks;
-import model.bots.BotInterface;
+import model.Pair;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -39,8 +38,8 @@ public class BasicBotView extends SimplePathFindingView {
 
 
         try {
-            ArrayList<Integer> runMove = bot.getRunVisit(currentTick);
-            bot.move(runMove.get(0), runMove.get(1));
+            Pair runMove = bot.getRunCurrentBotPos(currentTick);
+            bot.move(runMove.getX(), runMove.getY());
         }
         catch (Exception e) {
 
