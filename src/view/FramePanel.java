@@ -22,7 +22,6 @@ public class FramePanel extends JFrame {
 
     @Override
     public Dimension getPreferredSize() {
-        int dimensions = (int) (m.getBlockDimensions() + Math.sqrt(m.getGridSize()));
-        return new Dimension(dimensions, dimensions);
+        return Toolkit.getDefaultToolkit().getScreenSize();
     }
 }

@@ -2,8 +2,6 @@ package model.blocks;
 
 public class BasicBlocks {
 
-    private final int height, width;
-    private final int x, y;
     private boolean blocked;
     private boolean goal = false;
     private boolean bot = false;
@@ -12,23 +10,21 @@ public class BasicBlocks {
     private BasicBlocks parent;
     private int rowPos;
     private int columnPos;
+    private int distanceFromGoal = (int) Double.POSITIVE_INFINITY;
 
-    public BasicBlocks(int height, int width, int x, int y, boolean blocked, int rowPos, int columnPos) {
+    public BasicBlocks(boolean blocked, int rowPos, int columnPos) {
 
-        if (height <= 0 || width <= 0) {
-            throw new IllegalArgumentException("Dimensions must be greater than 0");
-        }
-        if (rowPos < 0 || columnPos < 0) {
-            throw new IllegalArgumentException("Column/Row Position must be greater than or equal to 0");
-        }
-
-        this.height = height;
         this.blocked = blocked;
         this.rowPos = rowPos;
         this.columnPos = columnPos;
-        this.width = width;
-        this.x = x;
-        this.y = y;
+    }
+
+    public int getDistanceFromGoal() {
+        return distanceFromGoal;
+    }
+
+    public void setDistanceFromGoal(int distanceFromGoal) {
+        this.distanceFromGoal = distanceFromGoal;
     }
 
     public int getColumnPos() {
@@ -47,25 +43,12 @@ public class BasicBlocks {
         return parent;
     }
 
-    public int getX() {
-        return this.x;
-    }
-
-    public int getY() {
-        return this.y;
-    }
 
     public boolean getBlocked() {
         return this.blocked;
     }
 
-    public int getHeight() {
-        return height;
-    }
 
-    public int getWidth() {
-        return width;
-    }
 
     public void unblock() {
         this.blocked = false;
@@ -90,9 +73,13 @@ public class BasicBlocks {
     }
 
     public void setGoal() {
-        this.goal = true;
-        this.path = false;
-        this.bot = false;
+        if (this.goal) {
+            this.goal = false;
+        } else {
+            this.goal = true;
+            this.path = false;
+            this.bot = false;
+        }
     }
 
     public void setBot() {

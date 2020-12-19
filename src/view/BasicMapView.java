@@ -55,15 +55,21 @@ public class BasicMapView extends JPanel implements ViewInterface {
         Graphics2D g2d = (Graphics2D) g.create();
 
 
+        int blockXSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / map.getGridSize().getX());
+        int blockYSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / map.getGridSize().getY());
+
+        int blockSize = Math.min(blockXSize, blockYSize);
+
         if (!this.finalDisplay) {
             for (int x = 0; x < alpha; x++) {
                 BasicBlocks b = map.getVisitedOrder().get(x);
 
+
                 if (x + 1 == alpha) {
                     g.setColor(Color.blue);
-                    g.fillRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
+                    g.fillRect(blockSize * b.getColumnPos(), blockSize * b.getRowPos(), blockSize, blockSize);
                 }
-                g.drawRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
+                g.drawRect(blockSize * b.getColumnPos(), blockSize * b.getRowPos(), blockSize, blockSize);
 
             }
             alpha++;
@@ -72,9 +78,9 @@ public class BasicMapView extends JPanel implements ViewInterface {
                 for (int x = 0; x < ba.size(); x++) {
                     BasicBlocks b = ba.get(x);
                     if (b.getBlocked()) {
-                        g.fillRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
+                        g.fillRect(blockSize * b.getColumnPos(), blockSize * b.getRowPos(), blockSize, blockSize);
                     }
-                    g.drawRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
+                    g.drawRect(blockSize * b.getColumnPos(), blockSize * b.getRowPos(), blockSize, blockSize);
                 }
             }
 

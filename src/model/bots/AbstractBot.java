@@ -18,7 +18,7 @@ public abstract class AbstractBot implements BotInterface {
     private Pair goal;
     private final HashSet<BasicBlocks> visited;
 
-    protected ArrayList<Pair> visitedOrder;
+    protected ArrayList<ArrayList<Pair>> visitedOrder;
 
 
 
@@ -112,13 +112,13 @@ public abstract class AbstractBot implements BotInterface {
     }
 
     @Override
-    public Pair getRunCurrentBotPos(int tick) {
-        return this.visitedOrder.get(tick);
+    public Pair getRunCurrentBotPos(int run, int tick) {
+        return this.visitedOrder.get(run).get(tick);
     }
 
     @Override
-    public int getFinalTick() {
-        return this.visitedOrder.size() - 1;
+    public int getFinalTick(int run) {
+        return this.visitedOrder.get(run).size();
     }
 
     @Override
@@ -148,5 +148,13 @@ public abstract class AbstractBot implements BotInterface {
 
     public Pair getGoal() {
         return goal;
+    }
+
+
+    @Override
+    public void setGoal(int x, int y) {
+        this.m.getBlock(x, y).setGoal();
+        this.m.getBlock(this.goal.getX(), this.goal.getY()).setGoal();
+        this.goal = new Pair(x, y);
     }
 }

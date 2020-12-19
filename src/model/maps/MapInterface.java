@@ -1,5 +1,6 @@
 package model.maps;
 
+import model.Pair;
 import model.blocks.BasicBlocks;
 
 import java.util.ArrayList;
@@ -17,9 +18,8 @@ public interface MapInterface {
 
     ArrayList<BasicBlocks> getVisitedOrder();
 
-    int getBlockDimensions();
 
-    int getGridSize();
+    Pair getGridSize();
 
     ArrayList<BasicBlocks> getUnvisitedNeighbors(int x, int y);
 

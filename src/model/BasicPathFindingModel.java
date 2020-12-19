@@ -12,8 +12,7 @@ import java.util.ArrayList;
 //idea for interface parameter usage: a basic path finding model should be able to use multiple bot types and map types
 public class BasicPathFindingModel implements ModelInterface<BotInterface, MapInterface> {
 
-    private final int blockSize;
-    private final int numBlocks;
+    private final Pair gridSize;
     private MapInterface m;
     private BotInterface b;
 
@@ -22,9 +21,8 @@ public class BasicPathFindingModel implements ModelInterface<BotInterface, MapIn
 
 
 
-    public BasicPathFindingModel(int blockSize, int numBlocks, String mapType, String botType) {
-        this.blockSize = blockSize;
-        this.numBlocks = numBlocks;
+    public BasicPathFindingModel(Pair gridSize, String mapType, String botType) {
+        this.gridSize = gridSize;
         this.mapType = mapType;
         this.botType = botType;
         this.generateMap();
@@ -34,7 +32,7 @@ public class BasicPathFindingModel implements ModelInterface<BotInterface, MapIn
 
     @Override
     public void generateMap() {
-        this.m = new MapTypes().choose(mapType, blockSize, numBlocks);
+        this.m = new MapTypes().choose(mapType, gridSize);
     }
 
     @Override
@@ -66,6 +64,6 @@ public class BasicPathFindingModel implements ModelInterface<BotInterface, MapIn
 
     @Override
     public int getFinalTick() {
-        return this.b.getFinalTick();
+        return this.b.getFinalTick(0);
     }
 }

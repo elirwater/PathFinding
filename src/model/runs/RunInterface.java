@@ -22,5 +22,12 @@ public interface RunInterface {
     ArrayList<Pair> getRun();
 
 
+    /**
+     * Generates the path from the goal to the starting block that is displayed by the view
+     * to visualize the best path that the algorithm takes
+     */
+    void generatePathFromGoal();
+
+
 
 }

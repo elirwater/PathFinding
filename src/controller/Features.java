@@ -22,4 +22,12 @@ public interface Features extends ControllerInterface {
      * Generates new random starting position
      */
     void generateNewStartingPos();
+
+
+    /**
+     * Uses the clicked Basic Block and auto navigates to it,
+     * returning user control once it has arrived at the goal
+     */
+    void autoNavigateToLocation();
+
 }

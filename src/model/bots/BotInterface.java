@@ -49,19 +49,24 @@ public interface BotInterface<R> {
     void move(int blockRow, int blockColumn);
 
 
-    Pair getRunCurrentBotPos(int tick);
+    Pair getRunCurrentBotPos(int run, int tick);
 
     /**
      * Grabs the final tick of this a bot run
      * @return final tick
      */
-    int getFinalTick();
+    int getFinalTick(int run);
 
     /**
      * Determines if the bot has reached the goal.
      * @return true if goal reached
      */
     boolean goalReached();
+
+    /**
+     * Sets the goal.
+     */
+    void setGoal(int x, int y);
 
 
     Pair getGoal();

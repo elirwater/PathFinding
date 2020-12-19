@@ -1,5 +1,6 @@
 package model.types;
 
+import model.Pair;
 import model.maps.DepthFirstSearchMap;
 import model.maps.MapInterface;
 
@@ -9,11 +10,11 @@ import model.maps.MapInterface;
 public class MapTypes {
 
 
-    public MapInterface choose(String mapType, int blockSize, int numBlocks) {
+    public MapInterface choose(String mapType, Pair gridSize) {
 
         switch (mapType) {
             case "DepthFirstSearch":
-                return new DepthFirstSearchMap(blockSize, numBlocks);
+                return new DepthFirstSearchMap(gridSize);
             default:
                 throw new IllegalArgumentException("Must choose an existing map type");
         }

@@ -3,9 +3,12 @@ package view;
 import controller.Features;
 import model.ModelInterface;
 import model.bots.BotInterface;
+import model.maps.MapInterface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +30,7 @@ public class UserBotView extends SimplePathFindingView {
 
     @Override
     public void animate() throws InterruptedException {
-        f.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
 
         JPanel p = new JPanel();
         p.add(this.reset);
@@ -45,6 +48,7 @@ public class UserBotView extends SimplePathFindingView {
 
     @Override
     public void render() throws InterruptedException {
+        this.setFocusable(true);
         BotInterface bot = (BotInterface) this.m.getBot();
         while (!bot.goalReached()) {
             Thread.sleep(1000 / this.tps);
@@ -64,6 +68,7 @@ public class UserBotView extends SimplePathFindingView {
         features.move();
         features.restart();
         features.generateNewStartingPos();
+        features.autoNavigateToLocation();
     }
 
 
@@ -121,4 +126,5 @@ public class UserBotView extends SimplePathFindingView {
             newStart.setFocusable(false);
         });
     }
+
 }

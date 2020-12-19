@@ -39,4 +39,10 @@ public class UserBotController implements Features {
     public void generateNewStartingPos() {
         this.v.generateNewStartingPos();
     }
+
+    @Override
+    public void autoNavigateToLocation() {
+
+    }
+
 }

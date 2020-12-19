@@ -13,7 +13,7 @@ public class DFSBot extends AbstractBot {
     public void generateRun() {
         DFSRun r = new DFSRun(m, this);
         r.generateRun();
-        this.visitedOrder = r.getRun();
+        this.visitedOrder.add(r.getRun());
     }
 
 }

@@ -1,9 +1,6 @@
 package model.types;
 
-import model.bots.BFSBot;
-import model.bots.DFSBot;
-import model.bots.BotInterface;
-import model.bots.UserBot;
+import model.bots.*;
 import model.maps.MapInterface;
 
 /**
@@ -20,8 +17,10 @@ public class BotTypes {
                 return new BFSBot(m);
             case "UserBot":
                 return new UserBot(m);
+            case "DijkstraBot":
+                return new DijkstraBot(m);
             default:
-                throw new IllegalArgumentException("Must choose an existing map type");
+                throw new IllegalArgumentException("Must choose an existing bot type");
         }
 
     }

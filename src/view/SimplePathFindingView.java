@@ -31,10 +31,13 @@ abstract class SimplePathFindingView extends JPanel implements ViewInterface {
     }
 
 
+
+
+
     @Override
     public void animate() throws InterruptedException {
         BotInterface b = (BotInterface) this.m.getBot();
-        this.lastTick = b.getFinalTick() + 1;
+        this.lastTick = b.getFinalTick(0) + 1;
         f.setLayout(new BorderLayout());
 
         f.add(this, BorderLayout.CENTER);
@@ -57,43 +60,49 @@ abstract class SimplePathFindingView extends JPanel implements ViewInterface {
 
     @Override
     public Dimension getPreferredSize() {
-        MapInterface map = (MapInterface) m.getMap();
-        int dimensions = (int) (map.getBlockDimensions() + Math.sqrt(map.getGridSize()));
-        return new Dimension(dimensions, dimensions);
+        return null;
     }
 
 
     @Override
     protected void paintComponent(Graphics g) {
 
+        MapInterface map = (MapInterface) this.m.getMap();
+        int blockXSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / map.getGridSize().getX());
+        int blockYSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / map.getGridSize().getY());
+
+        int blockSize = Math.min(blockXSize, blockYSize);
+
 
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g.create();
 
-            MapInterface map = (MapInterface) this.m.getMap();
+
             ArrayList<ArrayList<BasicBlocks>> toDraw = map.getMapGrid();
+        int i = 0;
             for (ArrayList<BasicBlocks> ba : toDraw) {
                 for (int x = 0; x < ba.size(); x++) {
                     BasicBlocks b = ba.get(x);
                     if (b.getBlocked()) {
                         g.setColor(Color.gray);
-                        g.fillRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
+                        g.fillRect(blockSize * x, blockSize * i, blockSize, blockSize);
                     }
                     if (b.isBot()) {
                         g.setColor(Color.blue);
-                        g.fillRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
+                        g.fillRect(blockSize * x, blockSize * i, blockSize, blockSize);
                     }
                     if (b.isGoal()) {
-                        g.setColor(Color.green);
-                        g.fillRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
+                        g.setColor(Color.red);
+                        g.fillRect(blockSize * x, blockSize * i, blockSize, blockSize);
                     }
                     if (b.isPath()) {
                         g.setColor(Color.MAGENTA);
-                        g.fillRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
+                        g.fillRect(blockSize * x, blockSize * i, blockSize, blockSize);
                     }
                     g.setColor(Color.gray);
-                    g.drawRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
+                    g.drawRect(blockSize * x, blockSize * i, blockSize, blockSize);
                 }
+                i ++;
             }
         g2d.dispose();
     }

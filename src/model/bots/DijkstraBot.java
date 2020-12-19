@@ -1,19 +1,18 @@
 package model.bots;
 
 import model.maps.MapInterface;
-import model.runs.BFSRun;
 import model.runs.DFSRun;
+import model.runs.DijkstraRun;
 
-public class BFSBot extends AbstractBot {
+public class DijkstraBot extends AbstractBot {
 
-    public BFSBot(MapInterface m) {
+    public DijkstraBot(MapInterface m) {
         super(m);
     }
 
-
     @Override
     public void generateRun() {
-        BFSRun r = new BFSRun(m, this);
+        DijkstraRun r = new DijkstraRun(m, this);
         r.generateRun();
         this.visitedOrder.add(r.getRun());
     }

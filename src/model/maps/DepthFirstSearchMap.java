@@ -1,7 +1,9 @@
 package model.maps;
 
+import model.Pair;
 import model.blocks.BasicBlocks;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -11,8 +13,7 @@ import java.util.Random;
  */
 public class DepthFirstSearchMap implements MapInterface {
 
-    private final int blockSize;
-    private final int numBlocks;
+    private final Pair gridSize;
     private final ArrayList<ArrayList<BasicBlocks>> mapGrid;
     private final ArrayList<BasicBlocks> visitedOrder;
 
@@ -20,18 +21,18 @@ public class DepthFirstSearchMap implements MapInterface {
     /**
      * Constructor for instantiating a depth first search map for a path-finding bot
      *
-     * @param blockSize height/width of the square block
-     * @param numBlocks number of blocks in a grid, must be a perfect square
      * @throws  IllegalArgumentException if the grid isn't an odd perfect square, or incorrect block instantiation
      */
-    public DepthFirstSearchMap(int blockSize, int numBlocks) {
+    public DepthFirstSearchMap(Pair gridSize) {
 
-        if (numBlocks % Math.sqrt(numBlocks) != 0 || (Math.sqrt(numBlocks) % 2) == 0) {
-            throw new IllegalArgumentException("Grid Size must be a perfect square, with squares being odd");
-        }
 
-        this.blockSize = blockSize;
-        this.numBlocks = numBlocks;
+        Toolkit.getDefaultToolkit().getScreenSize();
+
+      //  if (numBlocks % Math.sqrt(numBlocks) != 0 || (Math.sqrt(numBlocks) % 2) == 0) {
+      //      throw new IllegalArgumentException("Grid Size must be a perfect square, with squares being odd");
+       // }
+
+        this.gridSize = gridSize;
         this.mapGrid = new ArrayList<>();
         this.visitedOrder = new ArrayList<>();
         this.generateMapGrid();
@@ -40,22 +41,17 @@ public class DepthFirstSearchMap implements MapInterface {
 
     @Override
     public void generateMapGrid() {
-        int rowCount = (int) Math.sqrt(numBlocks);
-        int blockHeight = blockSize / rowCount;
-        int blockWidth = blockSize / rowCount;
+        int rowCount = this.gridSize.getY();
+        int columnCount = this.gridSize.getX();
 
         for (int z = 0; z < rowCount; z++) {
-            int numInRowCount = (int) Math.sqrt(numBlocks);
             ArrayList<BasicBlocks> rowList = new ArrayList<>();
 
-            for (int t = 0; t < numInRowCount; t++) {
-
-                //position calculates from center of block
-                int blockXPosition = ((t + 1) * blockWidth) - (blockWidth / 2);
-                int blockYPosition = ((z + 1) * blockHeight) - (blockHeight / 2);
+            for (int t = 0; t < columnCount; t++) {
 
 
-                BasicBlocks b = new BasicBlocks(blockHeight, blockWidth, blockXPosition, blockYPosition, true, z, t);
+
+                BasicBlocks b = new BasicBlocks(true, z, t);
                 rowList.add(b);
             }
             this.mapGrid.add(rowList);
@@ -66,20 +62,20 @@ public class DepthFirstSearchMap implements MapInterface {
     @Override
     public void generateMaze() {
         Random rand = new Random();
-        int mazeDimensions = (int) Math.sqrt(this.numBlocks);
+
 
         //grabbing a random row cell value
-        int r = rand.nextInt(mazeDimensions);
+        int r = rand.nextInt(this.gridSize.getY());
         //Making sure random number is odd
         while (r % 2 == 0) {
-            r = rand.nextInt(mazeDimensions);
+            r = rand.nextInt(this.gridSize.getY());
         }
 
         //grabbing a random column value
-        int c = rand.nextInt(mazeDimensions);
+        int c = rand.nextInt( this.gridSize.getX());
         //Making sure random number is odd
         while (c % 2 == 0) {
-            c = rand.nextInt(mazeDimensions);
+            c = rand.nextInt( this.gridSize.getX());
         }
 
         this.mapGrid.get(r).get(c).unblock();
@@ -121,7 +117,7 @@ public class DepthFirstSearchMap implements MapInterface {
                     }
                     break;
                 case 2:
-                    if (c + 2 >=  (int) (Math.sqrt(this.numBlocks) - 1))
+                    if (c + 2 >=  this.gridSize.getX() - 1)
                         continue;
                     if (this.mapGrid.get(r).get(c + 2).getBlocked()) {
                         this.visitedOrder.add(this.mapGrid.get(r).get(c + 2));
@@ -133,7 +129,7 @@ public class DepthFirstSearchMap implements MapInterface {
                     break;
 
                 case 3:
-                    if (r + 2 >=  (int) Math.sqrt(this.numBlocks) - 1)
+                    if (r + 2 >=  this.gridSize.getY() - 1)
                         continue;
                     if (this.mapGrid.get(r + 2).get(c).getBlocked()) {
                         this.visitedOrder.add(this.mapGrid.get(r + 2).get(c));
@@ -189,15 +185,6 @@ public class DepthFirstSearchMap implements MapInterface {
         return visitedOrder;
     }
 
-    @Override
-    public int getBlockDimensions() {
-        return this.blockSize;
-    }
-
-    @Override
-    public int getGridSize() {
-        return this.numBlocks;
-    }
 
 
     @Override
@@ -224,4 +211,8 @@ public class DepthFirstSearchMap implements MapInterface {
 
     }
 
+    @Override
+    public Pair getGridSize() {
+        return this.gridSize;
+    }
 }

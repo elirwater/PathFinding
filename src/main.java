@@ -3,6 +3,7 @@ import controller.BasicPathFindingModelController;
 import controller.ControllerInterface;
 import controller.UserBotController;
 import model.BasicPathFindingModel;
+import model.Pair;
 
 public class main {
 
@@ -13,8 +14,8 @@ public class main {
         String bot = "";
         String map = "";
         String controllerType = "";
-        int blockSize = 0;
-        int numBlocks = 0;
+        int gridSizeX = 0;  //width
+        int gridSizeY = 0;  //height
 
 
         for (int i = 0; i < args.length; i++) {
@@ -39,23 +40,17 @@ public class main {
                     throw new IllegalArgumentException("Must provide an argument controller");
                 }
             }
-            if (args[i].equalsIgnoreCase("-blockSize")) {
+            if (args[i].equalsIgnoreCase("-gridSize")) {
                 try {
-                    blockSize = Integer.parseInt(args[i + 1]);
+                    gridSizeX = Integer.parseInt(args[i + 1]);
+                    gridSizeY = Integer.parseInt(args[i + 2]);
                 } catch (Exception e) {
                     throw new IllegalArgumentException("Must provide valid argument for -blockSize");
                 }
             }
-            if (args[i].equalsIgnoreCase("-numBlocks")) {
-                try {
-                    numBlocks = Integer.parseInt(args[i + 1]);
-                } catch (Exception e) {
-                    throw new IllegalArgumentException("Must provide valid argument for -numBlocks");
-                }
-            }
         }
 
-        BasicPathFindingModel m = new BasicPathFindingModel(blockSize, numBlocks, map, bot);
+        BasicPathFindingModel m = new BasicPathFindingModel(new Pair(gridSizeX, gridSizeY), map, bot);
 
         ControllerInterface c;
 
