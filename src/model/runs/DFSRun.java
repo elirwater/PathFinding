@@ -20,9 +20,10 @@ public class DFSRun extends AbstractRuns {
 
     @Override
     public void generateRun() {
+        this.clearBlockCache();
 
         Stack<BasicBlocks> stack = new Stack<>();
-        this.startBlock.setVisited();
+        this.startBlock.setVisited(true);
         stack.push(this.startBlock);
 
         while (!stack.empty()) {
@@ -39,7 +40,7 @@ public class DFSRun extends AbstractRuns {
             ArrayList<BasicBlocks> neighbors = this.m.getUnvisitedNeighbors(x, y);
 
             for (int i = 0; i < neighbors.size(); i ++) {
-                neighbors.get(i).setVisited();
+                neighbors.get(i).setVisited(true);
                 neighbors.get(i).setParent(curNode);
                 stack.push(neighbors.get(i));
 

@@ -15,7 +15,7 @@ public class BasicBotController implements Features {
 
     public BasicBotController(BasicPathFindingModel m) { /////////////////NOT HOW YOU SHOULD HANDLE THIS.........
         this.m = m;
-        this.v = new BasicBotView(m, 180);
+        this.v = new BasicBotView(m, 110);
     }
 
     @Override

@@ -62,8 +62,10 @@ public class BasicBotView extends SimplePathFindingView {
                 MapInterface map = (MapInterface) m.getMap();
 
 
-                int blockXSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / map.getGridSize().getX());
-                int blockYSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / map.getGridSize().getY());
+                int blockXSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()
+                    / map.getGridSize().getX());
+                int blockYSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()
+                    / map.getGridSize().getY());
 
 
                 int blockSize = Math.min(blockXSize, blockYSize);
@@ -77,6 +79,7 @@ public class BasicBotView extends SimplePathFindingView {
 
                 bot.generateRun();
                 numRuns ++;
+                currentTick = 0;
                 lastTick = lastTick + bot.getFinalTick(numRuns);
             }
 

@@ -32,6 +32,8 @@ public abstract class AbstractRuns implements RunInterface {
     public void generatePathFromGoal() {
         Pair goalCords = this.b.getGoal();
         BasicBlocks b = this.m.getBlock(goalCords.getX(), goalCords.getY());
+
+
         ArrayList<BasicBlocks> fromGoal = new ArrayList<>();
 
         fromGoal.add(this.startBlock);
@@ -42,6 +44,16 @@ public abstract class AbstractRuns implements RunInterface {
 
         for (int x = fromGoal.size() - 1; x > 0; x--) {
             this.run.add(new Pair(fromGoal.get(x).getRowPos(), (fromGoal.get(x).getColumnPos())));
+        }
+    }
+
+
+    @Override
+    public void clearBlockCache() {
+        for (ArrayList<BasicBlocks> br: this.m.getMapGrid()) {
+            for (BasicBlocks b: br) {
+                b.clearCache();
+            }
         }
     }
 

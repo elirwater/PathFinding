@@ -1,6 +1,5 @@
 package model.runs;
 
-import model.Pair;
 import model.blocks.BasicBlocks;
 import model.bots.BotInterface;
 import model.maps.MapInterface;
@@ -20,8 +19,9 @@ public class BFSRun extends AbstractRuns {
 
     @Override
     public void generateRun() {
+        this.clearBlockCache();
 
-        this.startBlock.setVisited();
+        this.startBlock.setVisited(true);
         Queue<BasicBlocks> queue = new LinkedList<>();
         queue.add(startBlock);
 
@@ -39,7 +39,7 @@ public class BFSRun extends AbstractRuns {
             ArrayList<BasicBlocks> neighbors = this.m.getUnvisitedNeighbors(x, y);
 
             for (int i = 0; i < neighbors.size(); i++) {
-                neighbors.get(i).setVisited();
+                neighbors.get(i).setVisited(true);
                 neighbors.get(i).setParent(currNode);
                 queue.offer(neighbors.get(i));
             }

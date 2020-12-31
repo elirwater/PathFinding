@@ -8,7 +8,6 @@ import model.Pair;
 public class main {
 
 
-
     public static void main(String[] args) throws InterruptedException {
 
         String bot = "";

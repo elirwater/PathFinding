@@ -2,6 +2,7 @@ package model.bots;
 
 import model.Pair;
 import model.blocks.BasicBlocks;
+import model.blocks.BasicBlocks.BlockState;
 import model.maps.MapInterface;
 import model.runs.DFSRun;
 
@@ -35,7 +36,7 @@ public abstract class AbstractBot implements BotInterface {
         this.rowBlock = startingCords.getX();
         this.columnBlock = startingCords.getY();
 
-        this.m.getBlock(rowBlock, columnBlock).setBot();
+        this.m.getBlock(rowBlock, columnBlock).setState(BlockState.bot, true);
 
     }
 
@@ -68,7 +69,7 @@ public abstract class AbstractBot implements BotInterface {
         this.goal = generateRandomPair();
         int x = this.goal.getX();
         int y = this.goal.getY();
-        this.m.getBlock(x, y).setGoal();
+        this.m.getBlock(x, y).setState(BlockState.goal, true);
     }
 
 
@@ -77,7 +78,7 @@ public abstract class AbstractBot implements BotInterface {
         this.startingCords = generateRandomPair();
         int x = this.startingCords.getX();
         int y = this.startingCords.getY();
-        this.m.getBlock(x, y).setBot();
+        this.m.getBlock(x, y).setState(BlockState.bot, true);
         this.visited.add(this.m.getBlock(x, y));
     }
 
@@ -88,7 +89,9 @@ public abstract class AbstractBot implements BotInterface {
 
         //Adds the blocks to the visited hashset
         for (BasicBlocks b: this.visited) {
-            b.setPath();
+            if (!b.isGoal()) {
+                b.setState(BlockState.path, true);
+            }
         }
 
         //removing the last block as the bot
@@ -100,10 +103,10 @@ public abstract class AbstractBot implements BotInterface {
             if (!m.getBlock(blockRow, blockColumn).getBlocked()) {
                 this.rowBlock = blockRow;
                 this.columnBlock = blockColumn;
-                this.m.getBlock(blockRow, blockColumn).setBot();
+                this.m.getBlock(blockRow, blockColumn).setState(BlockState.bot, true);
                 this.visited.add(this.m.getBlock(blockRow, blockColumn));
             } else {
-                this.m.getBlock(x, y).setBot();
+                this.m.getBlock(x, y).setState(BlockState.bot, true);
             }
             //Looking outside of the map
         } catch (IndexOutOfBoundsException e) {
@@ -153,8 +156,8 @@ public abstract class AbstractBot implements BotInterface {
 
     @Override
     public void setGoal(int x, int y) {
-        this.m.getBlock(x, y).setGoal();
-        this.m.getBlock(this.goal.getX(), this.goal.getY()).setGoal();
+        this.m.getBlock(x, y).setState(BlockState.goal, true);
+        this.m.getBlock(this.goal.getX(), this.goal.getY()).setState(BlockState.goal, false);
         this.goal = new Pair(x, y);
     }
 }

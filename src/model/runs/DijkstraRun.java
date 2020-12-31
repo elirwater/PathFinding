@@ -20,6 +20,8 @@ public class DijkstraRun extends AbstractRuns {
 
     @Override
     public void generateRun() {
+        this.clearBlockCache();
+
         PriorityQueue<BasicBlocks> prioQ = new PriorityQueue<>(new BasicBlockComparator());
 
         this.startBlock.setDistanceFromGoal(0);
@@ -28,7 +30,7 @@ public class DijkstraRun extends AbstractRuns {
 
         while(!prioQ.isEmpty()) {
             BasicBlocks curNode = prioQ.poll();
-            curNode.setVisited();
+            curNode.setVisited(true);
 
 
             for (BasicBlocks b : this.m.getUnvisitedNeighbors(curNode.getRowPos(), curNode.getColumnPos())) {

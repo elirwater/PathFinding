@@ -91,12 +91,12 @@ abstract class SimplePathFindingView extends JPanel implements ViewInterface {
                         g.setColor(Color.blue);
                         g.fillRect(blockSize * x, blockSize * i, blockSize, blockSize);
                     }
-                    if (b.isGoal()) {
-                        g.setColor(Color.red);
+                    if (b.isPath()) {
+                        g.setColor(Color.magenta);
                         g.fillRect(blockSize * x, blockSize * i, blockSize, blockSize);
                     }
-                    if (b.isPath()) {
-                        g.setColor(Color.MAGENTA);
+                    if (b.isGoal()) {
+                        g.setColor(Color.red);
                         g.fillRect(blockSize * x, blockSize * i, blockSize, blockSize);
                     }
                     g.setColor(Color.gray);

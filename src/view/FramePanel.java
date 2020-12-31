@@ -22,6 +22,18 @@ public class FramePanel extends JFrame {
 
     @Override
     public Dimension getPreferredSize() {
-        return Toolkit.getDefaultToolkit().getScreenSize();
+        int blockXSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / m.getGridSize().getX());
+        int blockYSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / m.getGridSize().getY());
+
+
+        int blockSize = Math.min(blockXSize, blockYSize);
+        int gridWidth = blockSize * m.getGridSize().getX();
+        int gridLength = blockSize * m.getGridSize().getY();
+
+
+
+
+
+        return new Dimension(gridWidth + 30, gridLength + 30);
     }
 }
