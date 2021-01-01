@@ -13,6 +13,7 @@ public class DijkstraBot extends AbstractBot {
     @Override
     public void generateRun() {
         DijkstraRun r = new DijkstraRun(m, this);
+        r.clearBlockCache();
         r.generateRun();
         this.visitedOrder.add(r.getRun());
     }

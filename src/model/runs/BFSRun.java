@@ -19,7 +19,6 @@ public class BFSRun extends AbstractRuns {
 
     @Override
     public void generateRun() {
-        this.clearBlockCache();
 
         this.startBlock.setVisited(true);
         Queue<BasicBlocks> queue = new LinkedList<>();

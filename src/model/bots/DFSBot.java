@@ -1,6 +1,7 @@
 package model.bots;
 
 import model.maps.MapInterface;
+import model.runs.AbstractRuns;
 import model.runs.DFSRun;
 
 public class DFSBot extends AbstractBot {
@@ -12,6 +13,7 @@ public class DFSBot extends AbstractBot {
     @Override
     public void generateRun() {
         DFSRun r = new DFSRun(m, this);
+        r.clearBlockCache();
         r.generateRun();
         this.visitedOrder.add(r.getRun());
     }

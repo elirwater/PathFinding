@@ -14,6 +14,7 @@ public class BFSBot extends AbstractBot {
     @Override
     public void generateRun() {
         BFSRun r = new BFSRun(m, this);
+        r.clearBlockCache();
         r.generateRun();
         this.visitedOrder.add(r.getRun());
     }

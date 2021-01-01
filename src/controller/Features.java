@@ -30,4 +30,10 @@ public interface Features extends ControllerInterface {
      */
     void autoNavigateToLocation();
 
+
+    /**
+     * Adjusts the tps using a slider
+     */
+    void adjustTickSpeed();
+
 }

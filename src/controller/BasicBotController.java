@@ -15,7 +15,7 @@ public class BasicBotController implements Features {
 
     public BasicBotController(BasicPathFindingModel m) { /////////////////NOT HOW YOU SHOULD HANDLE THIS.........
         this.m = m;
-        this.v = new BasicBotView(m, 110);
+        this.v = new BasicBotView(m, 30);
     }
 
     @Override
@@ -42,5 +42,10 @@ public class BasicBotController implements Features {
     @Override
     public void autoNavigateToLocation() {
         v.autoNavigateToLocation();
+    }
+
+    @Override
+    public void adjustTickSpeed() {
+        v.adjustTickSpeed();
     }
 }

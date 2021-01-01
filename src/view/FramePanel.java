@@ -34,6 +34,6 @@ public class FramePanel extends JFrame {
 
 
 
-        return new Dimension(gridWidth + 30, gridLength + 30);
+        return new Dimension(gridWidth + 30, gridLength + 80);
     }
 }

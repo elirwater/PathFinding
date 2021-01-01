@@ -18,9 +18,10 @@ abstract class SimplePathFindingView extends JPanel implements ViewInterface {
     protected final ModelInterface m;
     protected final BotInterface bot;
     protected FramePanel f;
-    protected final int tps;
+    protected int tps;
     protected int lastTick;
     protected int currentTick = 0;
+    protected JSlider slider = new JSlider();
 
     public SimplePathFindingView (ModelInterface m, int tps) {
         this.m = m;
@@ -38,11 +39,21 @@ abstract class SimplePathFindingView extends JPanel implements ViewInterface {
     public void animate() throws InterruptedException {
         BotInterface b = (BotInterface) this.m.getBot();
         this.lastTick = b.getFinalTick(0) + 1;
-        f.setLayout(new BorderLayout());
 
+        JPanel p = new JPanel();
+        p.add(slider);
+        p.setVisible(true);
+        f.add(p, BorderLayout.NORTH);
+
+        f.setLayout(new BorderLayout());
+        f.add(p, BorderLayout.NORTH);
         f.add(this, BorderLayout.CENTER);
+
+
+
         f.pack();
         f.setVisible(true);
+
 
         this.render();
     }

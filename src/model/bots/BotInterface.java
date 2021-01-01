@@ -70,4 +70,7 @@ public interface BotInterface<R> {
 
 
     Pair getGoal();
+
+
+    void generateGoal();
 }

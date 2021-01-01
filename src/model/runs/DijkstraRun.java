@@ -20,7 +20,6 @@ public class DijkstraRun extends AbstractRuns {
 
     @Override
     public void generateRun() {
-        this.clearBlockCache();
 
         PriorityQueue<BasicBlocks> prioQ = new PriorityQueue<>(new BasicBlockComparator());
 

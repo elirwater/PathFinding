@@ -7,10 +7,13 @@ import model.bots.BotInterface;
 import model.maps.MapInterface;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class BasicBotView extends SimplePathFindingView {
     private int numRuns = 0;
@@ -20,25 +23,38 @@ public class BasicBotView extends SimplePathFindingView {
         f.setFocusable(true);
         bot.generateRun();
 
-        ///NOT THE WAY TO DO THIS.
-
     }
+
 
     @Override
     public void render() throws InterruptedException {
         while (this.currentTick <= this.lastTick) {
             if (bot.goalReached()) {
                 JOptionPane.showMessageDialog(new JPanel(), "Goal Reached");
-                break;
+                bot.generateGoal();
+                generateNewRun();
             }
-            Thread.sleep(1000 / this.tps);
-            this.move();
-            this.repaint();
-            this.currentTick ++;
+            if (this.tps != 0) {
+                Thread.sleep(1000 / this.tps);
+                this.move();
+                this.repaint();
+                this.currentTick++;
+            } else {
+                this.repaint();
+            }
         }
 
 
+
     }
+
+    public void generateNewRun() {
+        bot.generateRun();
+        numRuns ++;
+        currentTick = 0;
+        lastTick = lastTick + bot.getFinalTick(numRuns);
+    }
+
 
     /**
      * Adds the given features defined by the features interface to this view window.
@@ -47,6 +63,7 @@ public class BasicBotView extends SimplePathFindingView {
      */
     public void addFeatures(Features features) {
         features.autoNavigateToLocation();
+        features.adjustTickSpeed();
     }
 
 
@@ -74,13 +91,7 @@ public class BasicBotView extends SimplePathFindingView {
                 int columnBlock = x / blockSize;
 
                 bot.setGoal(rowBlock, columnBlock);
-
-
-
-                bot.generateRun();
-                numRuns ++;
-                currentTick = 0;
-                lastTick = lastTick + bot.getFinalTick(numRuns);
+                generateNewRun();
             }
 
             @Override
@@ -104,11 +115,37 @@ public class BasicBotView extends SimplePathFindingView {
             }
         });
     }
-    /////ALSO NEED A WAY TO GRAB THE LENGTH OF A SPECIIFC RUN......
+
+
+    public void adjustTickSpeed() {
+        slider.setMinimum(0);
+        slider.setMaximum(300);
+
+        slider.setMajorTickSpacing(150);
+        slider.setPaintTicks(true);
+
+
+
+        Hashtable labelTable = new Hashtable();
+        labelTable.put(0, new JLabel("Pause"));
+        labelTable.put(150, new JLabel("Medium"));
+        labelTable.put(300, new JLabel("Speedy"));
+
+        slider.setLabelTable( labelTable );
+        slider.setPaintLabels(true);
+
+        slider.addChangeListener(changeEvent -> {
+            JSlider source = (JSlider)changeEvent.getSource();
+            this.tps = source.getValue();
+        });
+
+
+    }
+
+
+
 
     public void move() {
-
-
         try {
             Pair runMove = bot.getRunCurrentBotPos(this.numRuns, currentTick);
             bot.move(runMove.getX(), runMove.getY());

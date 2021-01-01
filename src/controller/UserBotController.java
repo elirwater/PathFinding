@@ -45,4 +45,9 @@ public class UserBotController implements Features {
 
     }
 
+    @Override
+    public void adjustTickSpeed() {
+
+    }
+
 }

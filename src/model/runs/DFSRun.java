@@ -20,7 +20,6 @@ public class DFSRun extends AbstractRuns {
 
     @Override
     public void generateRun() {
-        this.clearBlockCache();
 
         Stack<BasicBlocks> stack = new Stack<>();
         this.startBlock.setVisited(true);

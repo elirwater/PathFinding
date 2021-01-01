@@ -4,8 +4,6 @@ import model.Pair;
 import model.blocks.BasicBlocks;
 import model.blocks.BasicBlocks.BlockState;
 import model.maps.MapInterface;
-import model.runs.DFSRun;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -38,6 +36,19 @@ public abstract class AbstractBot implements BotInterface {
 
         this.m.getBlock(rowBlock, columnBlock).setState(BlockState.bot, true);
 
+
+    }
+
+
+    /**
+     * Determines if selected block is within valid bounds.
+     *
+     * @param x row pos of selected block
+     * @param y column pos of selected block
+     * @return true if the selected block is NOT a wall AND is in bound
+     */
+    private boolean checkBounds(int x, int y) {
+        return !m.getBlock(x, y).getBlocked() && x < m.getGridSize().getY() && y < m.getGridSize().getX();
     }
 
 
@@ -54,13 +65,16 @@ public abstract class AbstractBot implements BotInterface {
         int tempR = r.nextInt(rowBound);
         int tempC = r.nextInt(colBound);
 
-        while (this.m.getBlock(tempR, tempC).getBlocked()) {
+        while (!checkBounds(tempR, tempC)) {
             tempR = r.nextInt(rowBound);
             tempC = r.nextInt(colBound);
         }
 
         return new Pair(tempR, tempC);
     }
+
+
+
 
     /**
      * Generates a random goal block for this bot.
@@ -87,30 +101,17 @@ public abstract class AbstractBot implements BotInterface {
     @Override
     public void move(int blockRow, int blockColumn) {
 
-        //Adds the blocks to the visited hashset
-        for (BasicBlocks b: this.visited) {
-            if (!b.isGoal()) {
-                b.setState(BlockState.path, true);
+        if (checkBounds(blockRow, blockColumn)) {
+            for (BasicBlocks b: this.visited) {
+                if (!b.isGoal()) {
+                    b.setState(BlockState.path, true);
+                }
             }
-        }
 
-        //removing the last block as the bot
-        int x = this.rowBlock;
-        int y = this.columnBlock;
-        //checking to see if the block that it is attempting to move towards is blocked
-        try {
-            //Just roots the user in place if they try to move somewhere they shouldn't
-            if (!m.getBlock(blockRow, blockColumn).getBlocked()) {
-                this.rowBlock = blockRow;
-                this.columnBlock = blockColumn;
-                this.m.getBlock(blockRow, blockColumn).setState(BlockState.bot, true);
-                this.visited.add(this.m.getBlock(blockRow, blockColumn));
-            } else {
-                this.m.getBlock(x, y).setState(BlockState.bot, true);
-            }
-            //Looking outside of the map
-        } catch (IndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("Cannot move there");
+            this.rowBlock = blockRow;
+            this.columnBlock = blockColumn;
+            this.m.getBlock(blockRow, blockColumn).setState(BlockState.bot, true);
+            this.visited.add(this.m.getBlock(blockRow, blockColumn));
         }
     }
 
@@ -156,8 +157,10 @@ public abstract class AbstractBot implements BotInterface {
 
     @Override
     public void setGoal(int x, int y) {
-        this.m.getBlock(x, y).setState(BlockState.goal, true);
-        this.m.getBlock(this.goal.getX(), this.goal.getY()).setState(BlockState.goal, false);
-        this.goal = new Pair(x, y);
+        if (checkBounds(x, y)) {
+            this.m.getBlock(x, y).setState(BlockState.goal, true);
+            this.m.getBlock(this.goal.getX(), this.goal.getY()).setState(BlockState.goal, false);
+            this.goal = new Pair(x, y);
+        }
     }
 }
