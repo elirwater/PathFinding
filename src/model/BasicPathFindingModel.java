@@ -7,9 +7,9 @@ import model.maps.MapInterface;
 import model.types.BotTypes;
 import model.types.MapTypes;
 
-import java.util.ArrayList;
-
-//idea for interface parameter usage: a basic path finding model should be able to use multiple bot types and map types
+/**
+ * Model for instantiating a path-finding map and bot.
+ */
 public class BasicPathFindingModel implements ModelInterface<BotInterface, MapInterface> {
 
     private final Pair gridSize;

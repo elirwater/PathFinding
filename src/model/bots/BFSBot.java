@@ -2,8 +2,10 @@ package model.bots;
 
 import model.maps.MapInterface;
 import model.runs.BFSRun;
-import model.runs.DFSRun;
 
+/**
+ * Class for instantiating a breadth-first search bot.
+ */
 public class BFSBot extends AbstractBot {
 
     public BFSBot(MapInterface m) {

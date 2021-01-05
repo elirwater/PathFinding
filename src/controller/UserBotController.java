@@ -3,12 +3,14 @@ package controller;
 import model.BasicPathFindingModel;
 import view.UserBotView;
 
+/**
+ * Class for controlling a user-bot.
+ */
 public class UserBotController implements Features {
 
 
     BasicPathFindingModel m;
     UserBotView v;
-
 
 
     public UserBotController(BasicPathFindingModel m) {

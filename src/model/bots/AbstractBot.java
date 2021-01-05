@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
+
+/**
+ * Abstract class for abstracting the repeated functionality shared between bot classes.
+ */
 public abstract class AbstractBot implements BotInterface {
 
     private int rowBlock;
@@ -16,45 +20,39 @@ public abstract class AbstractBot implements BotInterface {
     protected final MapInterface m;
     private Pair goal;
     private final HashSet<BasicBlocks> visited;
-
     protected ArrayList<ArrayList<Pair>> visitedOrder;
 
-
-
-
     public AbstractBot(MapInterface m) {
-
         this.m = m;
         this.visitedOrder = new ArrayList<>();
         this.visited = new HashSet<>();
-
-
         this.generateRandomValidStartingPoint();
         this.generateGoal();
         this.rowBlock = startingCords.getX();
         this.columnBlock = startingCords.getY();
-
         this.m.getBlock(rowBlock, columnBlock).setState(BlockState.bot, true);
-
-
     }
 
-
     /**
-     * Determines if selected block is within valid bounds.
-     *
-     * @param x row pos of selected block
-     * @param y column pos of selected block
-     * @return true if the selected block is NOT a wall AND is in bound
+     * Checks to see if the requested basic block (through its array list pos) is not blocked,
+     * AND is within the map-grid.
+     * @param x Outer array list pos to be selected from
+     * @param y Inner array list pos to be selected from
+     * @return true if not blocked AND within map-grid
+     * @throws IllegalArgumentException if the requested block doesn't exist within the grid
      */
-    private boolean checkBounds(int x, int y) {
-        return !m.getBlock(x, y).getBlocked() && x < m.getGridSize().getY() && y < m.getGridSize().getX();
+    private boolean checkBounds(int x, int y) throws IllegalArgumentException {
+        try {
+            return !m.getBlock(x, y).getBlocked() && x < m.getGridSize().getY() && y < m.getGridSize().getX();
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Must select a block that is within the map-grid");
+        }
     }
 
 
     /**
-     * Generates a random pair of integers.
-     * @return pair of integers.
+     * Generates a random pair that when translated to a basic-block in the map grid is unblocked and within the grid.
+     * @return valid pair
      */
     private Pair generateRandomPair() {
 
@@ -74,10 +72,8 @@ public abstract class AbstractBot implements BotInterface {
     }
 
 
-
-
     /**
-     * Generates a random goal block for this bot.
+     * Generates a goal for a path-finding bot.
      */
     public void generateGoal() {
         this.goal = generateRandomPair();
@@ -117,7 +113,11 @@ public abstract class AbstractBot implements BotInterface {
 
     @Override
     public Pair getRunCurrentBotPos(int run, int tick) {
-        return this.visitedOrder.get(run).get(tick);
+        try {
+            return this.visitedOrder.get(run).get(tick);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Provided run or tick is not within bounds");
+        }
     }
 
     @Override
@@ -127,33 +127,53 @@ public abstract class AbstractBot implements BotInterface {
 
     @Override
     public boolean goalReached() {
-        return this.goal.getX() == this.rowBlock && this.goal.getY() == this.columnBlock;
+        try {
+            return this.goal.getX() == this.rowBlock && this.goal.getY() == this.columnBlock;
+        } catch (Exception e) {
+            throw new IllegalStateException("Goal has not been instantiated");
+        }
     }
 
 
     @Override
     public int getCurrentRow() {
-        return this.rowBlock;
+        try {
+            return this.rowBlock;
+        } catch (Exception e) {
+            throw new IllegalStateException("Something failed when retrieving row position");
+        }
     }
 
     @Override
     public int getCurrentColumn() {
-        return this.columnBlock;
+        try {
+            return this.columnBlock;
+        } catch (Exception e) {
+            throw new IllegalStateException("Something failed when retrieving column position");
+        }
     }
 
     @Override
     public Pair getStartingCords() {
-        return this.startingCords;
+        try {
+            return this.startingCords;
+        } catch (Exception e) {
+            throw new IllegalStateException("Something failed when retrieving starting cords");
+        }
     }
 
     @Override
     public void generateRun() {
     }
 
+    @Override
     public Pair getGoal() {
-        return goal;
+        try {
+            return goal;
+        } catch (Exception e) {
+            throw new IllegalStateException("Something failed when retrieving goal");
+        }
     }
-
 
     @Override
     public void setGoal(int x, int y) {

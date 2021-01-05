@@ -1,76 +1,91 @@
 package model.bots;
 
 import model.Pair;
-import model.blocks.BasicBlocks;
-
-import java.util.ArrayList;
 
 /**
  * Interface for representing a path-finding bot in a path-finding program.
  *
- * @param <R> The type of Run the bot creates
  */
-public interface BotInterface<R> {
+public interface BotInterface {
+
 
     /**
-     * Generates a randomized valid starting point for the bot in the map, called by default constructor automatically.
+     * Generates a starting point fort a bot that is within the map-grid AND is not blocked (a wall).
      */
     void generateRandomValidStartingPoint();
 
     /**
-     * Generates a run for this bot.
+     * Generates a run for a bot.
      */
     void generateRun();
 
-
     /**
-     * Grabs the starting block coordinates for a bot.
-     * @return coordinates
+     * Grabs the starting cords for a given bot's run.
+     * @return starting cords (position on the map-grid of a basic block)
+     * @throws IllegalStateException if the starting cords have not yet been instantiated or something fails.
      */
-    Pair getStartingCords();
+    Pair getStartingCords() throws IllegalStateException;
 
     /**
-     * Grabs the current x or row position for a bot.
-     * @return row position
+     * Grabs the current row of the bot on the map-grid.
+     * @return current row
+     * @throws IllegalStateException if the current row pos has not yet been instantiated or something fails.
      */
-    int getCurrentRow();
+    int getCurrentRow() throws IllegalStateException;
 
     /**
-     * Grabs the current y or column position for a bot.
-     * @return column position.
+     * Grabs the current column of the bot on the map-grid.
+     * @return current column
+     * @throws IllegalStateException if the current column cords has not yet been instantiated or something fails.
      */
-    int getCurrentColumn();
+    int getCurrentColumn() throws IllegalStateException;
 
     /**
-     * Moves a bot in it's map
-     * @param blockRow  new block position.
-     * @param blockColumn new block position.
+     * Moves the bot to the position specified by the method's arguments on the map-grid.
+     * @param blockRow  row position to move
+     * @param blockColumn   column position to move
      */
     void move(int blockRow, int blockColumn);
 
-
-    Pair getRunCurrentBotPos(int run, int tick);
+    /**
+     * Grabs the position of a bot at a certain run during a certain move in that run for visualization purposes.
+     * @param run   which run
+     * @param tick  which move in that run
+     * @return  pair of the position parameterized by the method's arguments on the map-grid
+     * @throws IllegalArgumentException if the specified run or tick is out of bounds of the array list.
+     */
+    Pair getRunCurrentBotPos(int run, int tick) throws IllegalArgumentException;
 
     /**
-     * Grabs the final tick of this a bot run
-     * @return final tick
+     * Grabs the final tick of a certain run to be used for visualization purposes.
+     * @param run   which run to grab the final tick from
+     * @return  final tick
      */
     int getFinalTick(int run);
 
     /**
-     * Determines if the bot has reached the goal.
-     * @return true if goal reached
+     * Checks if the bot has reached the current bot-goal.
+     * @return true if goal has been reached
+     * @throws IllegalStateException if the goal has not yet been instantiated.
      */
-    boolean goalReached();
+    boolean goalReached() throws IllegalStateException;
 
     /**
-     * Sets the goal.
+     * Set's the goal of a bot on the map-grid.
+     * @param x row position of goal
+     * @param y column position of goal
      */
     void setGoal(int x, int y);
 
+    /**
+     * Grabs the goal-cords of a bot.
+     * @return goal-cords
+     * @throws IllegalStateException if the goal has not yet been instantiated or something fails.
+     */
+    Pair getGoal() throws IllegalStateException;
 
-    Pair getGoal();
-
-
+    /**
+     * Generates a goal-block for a bot.
+     */
     void generateGoal();
 }

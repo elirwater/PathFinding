@@ -7,6 +7,9 @@ import model.maps.MapInterface;
 
 import java.util.ArrayList;
 
+/**
+ * Abstract class for abstracting repeated functionality of various runs.
+ */
 public abstract class AbstractRuns implements RunInterface {
 
     protected final ArrayList<Pair> run;
@@ -27,12 +30,10 @@ public abstract class AbstractRuns implements RunInterface {
 
     }
 
-
     @Override
     public void generatePathFromGoal() {
         Pair goalCords = this.b.getGoal();
         BasicBlocks b = this.m.getBlock(goalCords.getX(), goalCords.getY());
-
 
         ArrayList<BasicBlocks> fromGoal = new ArrayList<>();
 

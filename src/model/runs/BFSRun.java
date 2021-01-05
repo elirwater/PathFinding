@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Class for creating an instance of a breadth-first search run.
+ */
 public class BFSRun extends AbstractRuns {
 
 

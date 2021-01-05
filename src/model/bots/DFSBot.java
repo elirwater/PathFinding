@@ -1,9 +1,11 @@
 package model.bots;
 
 import model.maps.MapInterface;
-import model.runs.AbstractRuns;
 import model.runs.DFSRun;
 
+/**
+ * Class for instantiating a depth-first search bot.
+ */
 public class DFSBot extends AbstractBot {
 
     public DFSBot(MapInterface m) {

@@ -1,10 +1,11 @@
 package model.blocks;
 
-import java.util.ArrayList;
-
+/**
+ * Class for representing a basic block, which holds all of the relevant map grid info.
+ */
 public class BasicBlocks {
 
-    private boolean blocked;
+    private boolean blocked = true;
     private boolean goal = false;
     private boolean bot = false;
     private boolean path = false;
@@ -14,8 +15,7 @@ public class BasicBlocks {
     private int columnPos;
     private int distanceFromGoal = (int) Double.POSITIVE_INFINITY;
 
-    public BasicBlocks(boolean blocked, int rowPos, int columnPos) {
-        this.blocked = blocked;
+    public BasicBlocks(int rowPos, int columnPos) {
         this.rowPos = rowPos;
         this.columnPos = columnPos;
     }

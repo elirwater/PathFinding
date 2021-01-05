@@ -25,14 +25,13 @@ public interface Features extends ControllerInterface {
 
 
     /**
-     * Uses the clicked Basic Block and auto navigates to it,
-     * returning user control once it has arrived at the goal
+     * Auto-navigates the bot to a new goal that you select by clicking on the map grid.
      */
     void autoNavigateToLocation();
 
 
     /**
-     * Adjusts the tps using a slider
+     * Adjusts the tps using a slider.
      */
     void adjustTickSpeed();
 

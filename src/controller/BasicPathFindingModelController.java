@@ -3,17 +3,16 @@ package controller;
 import model.BasicPathFindingModel;
 import view.BasicMapView;
 
-
-//specific controller for specific model
-
+/**
+ * Class for controlling the map-creation.
+ */
 public class BasicPathFindingModelController implements ControllerInterface {
 
     BasicPathFindingModel m;
     BasicMapView v;
 
 
-
-    public BasicPathFindingModelController(BasicPathFindingModel m) { /////////////////NOT HOW YOU SHOULD HANDLE THIS.........
+    public BasicPathFindingModelController(BasicPathFindingModel m) {
         this.m = m;
         this.v = new BasicMapView(m, 10);
     }

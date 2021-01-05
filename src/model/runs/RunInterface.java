@@ -1,8 +1,6 @@
 package model.runs;
 
 import model.Pair;
-import model.blocks.BasicBlocks;
-
 import java.util.ArrayList;
 
 /**
@@ -29,7 +27,7 @@ public interface RunInterface {
     void generatePathFromGoal();
 
     /**
-     * Clears the block cache, resetting all of the block values used in pathfinding to their
+     * Clears the block cache, resetting all of the block values used in path-finding to their
      * default state.
      */
     void clearBlockCache();

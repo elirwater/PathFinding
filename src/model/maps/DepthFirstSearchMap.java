@@ -2,8 +2,6 @@ package model.maps;
 
 import model.Pair;
 import model.blocks.BasicBlocks;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -21,16 +19,12 @@ public class DepthFirstSearchMap implements MapInterface {
     /**
      * Constructor for instantiating a depth first search map for a path-finding bot
      *
-     * @throws  IllegalArgumentException if the grid isn't an odd perfect square, or incorrect block instantiation
+     * @throws  IllegalArgumentException if the grid-size is likely to cause a stack over-flow exception
      */
     public DepthFirstSearchMap(Pair gridSize) {
-
-
-        Toolkit.getDefaultToolkit().getScreenSize();
-
-      //  if (numBlocks % Math.sqrt(numBlocks) != 0 || (Math.sqrt(numBlocks) % 2) == 0) {
-      //      throw new IllegalArgumentException("Grid Size must be a perfect square, with squares being odd");
-       // }
+        if (gridSize.getX() > 300 || gridSize.getY() > 300) {
+            throw new IllegalArgumentException("Selected grid size will likely cause a stack-overflow exception");
+        }
 
         this.gridSize = gridSize;
         this.mapGrid = new ArrayList<>();
@@ -49,9 +43,7 @@ public class DepthFirstSearchMap implements MapInterface {
 
             for (int t = 0; t < columnCount; t++) {
 
-
-
-                BasicBlocks b = new BasicBlocks(true, z, t);
+                BasicBlocks b = new BasicBlocks(z, t);
                 rowList.add(b);
             }
             this.mapGrid.add(rowList);
@@ -62,7 +54,6 @@ public class DepthFirstSearchMap implements MapInterface {
     @Override
     public void generateMaze() {
         Random rand = new Random();
-
 
         //grabbing a random row cell value
         int r = rand.nextInt(this.gridSize.getY());
@@ -79,7 +70,6 @@ public class DepthFirstSearchMap implements MapInterface {
         }
 
         this.mapGrid.get(r).get(c).unblock();
-
 
         this.mazeRecursion(r, c);
 
@@ -170,10 +160,13 @@ public class DepthFirstSearchMap implements MapInterface {
     }
 
     @Override
-    public BasicBlocks getBlock(int x, int y) {
-        return this.mapGrid.get(x).get(y);
+    public BasicBlocks getBlock(int x, int y) throws IllegalArgumentException {
+        try {
+            return this.mapGrid.get(x).get(y);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("The specified basic block doesn't exist in this map-grid");
+        }
     }
-
 
     @Override
     public ArrayList<ArrayList<BasicBlocks>> getMapGrid() {
@@ -184,7 +177,6 @@ public class DepthFirstSearchMap implements MapInterface {
     public ArrayList<BasicBlocks> getVisitedOrder() {
         return visitedOrder;
     }
-
 
 
     @Override
@@ -206,9 +198,7 @@ public class DepthFirstSearchMap implements MapInterface {
             out.add(this.mapGrid.get(x).get(y - 1));
         }
 
-
         return out;
-
     }
 
     @Override

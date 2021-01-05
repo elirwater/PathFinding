@@ -4,8 +4,9 @@ import model.BasicPathFindingModel;
 import view.BasicBotView;
 
 
-//specific controller for specific model
-
+/**
+ * Class for representing for controlling several different path-finding bots.
+ */
 public class BasicBotController implements Features {
 
     BasicPathFindingModel m;
@@ -13,7 +14,7 @@ public class BasicBotController implements Features {
 
 
 
-    public BasicBotController(BasicPathFindingModel m) { /////////////////NOT HOW YOU SHOULD HANDLE THIS.........
+    public BasicBotController(BasicPathFindingModel m) {
         this.m = m;
         this.v = new BasicBotView(m, 30);
     }

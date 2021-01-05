@@ -153,9 +153,6 @@ public class BasicBotView extends SimplePathFindingView {
         catch (Exception e) {
 
         }
-
-
-
     }
 
 }

@@ -1,9 +1,11 @@
 package model.bots;
 
 import model.maps.MapInterface;
-import model.runs.DFSRun;
 import model.runs.DijkstraRun;
 
+/**
+ * Class for instantiating a dijkstra bot.
+ */
 public class DijkstraBot extends AbstractBot {
 
     public DijkstraBot(MapInterface m) {

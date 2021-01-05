@@ -5,13 +5,13 @@ import model.blocks.BasicBlocks;
 import model.bots.BotInterface;
 import model.maps.MapInterface;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+/**
+ * Class for creating an instance of a dijkstra run.
+ */
 public class DijkstraRun extends AbstractRuns {
-
-
 
 
     public DijkstraRun(MapInterface m, BotInterface b) {
@@ -54,11 +54,13 @@ public class DijkstraRun extends AbstractRuns {
 
     }
 
-    //Comparator class for ranking the priority of Basic Blocks
-    class BasicBlockComparator implements Comparator<BasicBlocks> {
+
+    /**
+     * Class comparator for ranking the priority of Basic Blocks by their block distance from the goal.
+     */
+    static class BasicBlockComparator implements Comparator<BasicBlocks> {
 
         //want to return 1 if closer to goal....
-
         @Override
         public int compare(BasicBlocks b1, BasicBlocks b2) {
             if (b1.getDistanceFromGoal() < b2.getDistanceFromGoal()) {

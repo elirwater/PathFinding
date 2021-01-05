@@ -1,6 +1,5 @@
 package model.runs;
 
-import model.Pair;
 import model.blocks.BasicBlocks;
 import model.bots.BotInterface;
 import model.maps.MapInterface;
@@ -8,6 +7,9 @@ import model.maps.MapInterface;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Class for creating an instance of a depth-first search run.
+ */
 public class DFSRun extends AbstractRuns {
 
 
